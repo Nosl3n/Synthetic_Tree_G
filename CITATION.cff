@@ -1,0 +1,34 @@
+cff-version: 1.2.0
+message: "Si usas este software, por favor cítalo como se indica abajo."
+title: "Synthetic_Tree_G: generación de árboles tropicales sintéticos a partir de modelos QSM reales y bosque virtual con LiDAR y cámara de profundidad en Isaac Sim"
+type: software
+authors:
+  - given-names: Nelson
+    family-names: Broyer-Paco
+  - given-names: Angel
+    family-names: Marquez-Aguilar
+  - given-names: Li
+    family-names: Shi
+  - given-names: Josine
+  - given-names: Pacifique
+repository-code: "https://github.com/Nosl3n/Synthetic_Tree_G"
+license: MIT
+date-released: "2026-10-30"
+keywords:
+  - synthetic data
+  - quantitative structure models
+  - TreeQSM
+  - terrestrial laser scanning
+  - LiDAR simulation
+  - Isaac Sim
+  - tropical forest
+references:
+  - type: dataset
+    title: "Datasets to quantify the impact of lianas on 3D tree structure and biomass"
+    authors:
+      - family-names: Krishna Moorthy
+        given-names: Sruthi M.
+      - name: "and others"
+    year: 2022
+    doi: 10.5281/zenodo.6981485
+    license: CC-BY-4.0

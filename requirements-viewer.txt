@@ -1,0 +1,5 @@
+# Visor en tiempo real (isaac_forest/viewer.py), en un entorno aparte del de Isaac Sim.
+rerun-sdk==0.41.0
+numpy==2.5.3
+scipy==1.18.1
+pillow==12.3.0

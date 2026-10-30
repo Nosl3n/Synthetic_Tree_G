@@ -1,0 +1,25 @@
+# datos descargados y resultados (se regeneran con scripts/)
+data/
+synth_trees/work/
+isaac_forest/assets/
+isaac_forest/scenes/
+isaac_forest/recordings/
+isaac_forest/screenshots/
+isaac_forest/videos/
+*.rrd
+# entornos
+.venv/
+.venv_viz/
+__pycache__/
+*.pyc
+# LaTeX
+paper/*.aux
+paper/*.bbl
+paper/*.bcf
+paper/*.blg
+paper/*.fdb_latexmk
+paper/*.fls
+paper/*.log
+paper/*.out
+paper/*.run.xml
+paper/*.bcf-SAVE-ERROR

@@ -1,0 +1,6 @@
+# Parte 1 (árboles sintéticos) y herramientas de análisis. Probado con Python 3.12.
+numpy==2.5.3
+scipy==1.18.1
+pandas==3.0.6
+matplotlib==3.11.2
+pillow==12.3.0
