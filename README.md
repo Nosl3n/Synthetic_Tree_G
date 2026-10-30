@@ -1,222 +1,222 @@
 # Synthetic_Tree_G
 
-**Generación de árboles tropicales sintéticos a partir de modelos QSM reales, y bosque virtual con LiDAR y cámara de profundidad en NVIDIA Isaac Sim.**
+🌐 **English** · [Español](README.es.md)
 
-*Generating synthetic tropical trees from real QSM tree models, with a virtual forest for LiDAR and depth-camera simulation in NVIDIA Isaac Sim.*
+**Generating synthetic tropical trees from real QSM tree models, with a virtual forest for LiDAR and depth-camera simulation in NVIDIA Isaac Sim.**
 
-**Autores:** Nelson Broyer-Paco, Angel Marquez-Aguilar, Li Shi, Josine, Pacifique
+**Authors:** Nelson Broyer-Paco, Angel Marquez-Aguilar, Li Shi, Josine, Pacifique
 
-📄 Artículo: [`paper/main.pdf`](paper/main.pdf) (en español) · 📦 Datos pesados (grabaciones, videos, escenas): [Google Drive](https://drive.google.com/drive/folders/1A_rpW5E1f6_VL9n4JmHMmiPmwXZPpeNK?usp=sharing)
+📄 Paper: [`paper/main.pdf`](paper/main.pdf) (in Spanish) · 📦 Large files (recordings, videos, scenes): [Google Drive](https://drive.google.com/drive/folders/1A_rpW5E1f6_VL9n4JmHMmiPmwXZPpeNK?usp=sharing)
 
-![El mismo bosque en dos versiones](paper/figs/vistas_v1_v2.png)
+![The same forest in two versions](paper/figs/vistas_v1_v2.png)
 
 ---
 
-## Resumen
+## Summary
 
-Las redes que segmentan nubes de puntos de bosques necesitan muchos datos etiquetados, y etiquetarlos es caro. Este proyecto estudia **cómo generar árboles sintéticos realistas a partir de árboles reales escaneados** y **cómo medir si se parecen a los reales**. Después los usa para construir un bosque virtual con sensores simulados.
+Networks that segment forest point clouds need large amounts of labelled data, and labelling is expensive. This project studies **how to generate realistic synthetic trees from real scanned trees** and **how to measure whether they resemble the real ones**. It then uses them to build a virtual forest with simulated sensors.
 
-1. **Datos reales:** 201 QSM (modelos de cilindros reconstruidos con TreeQSM) de árboles tropicales de 53 especies de Barro Colorado Island, Panamá ([Krishna Moorthy et al. 2022](https://doi.org/10.5281/zenodo.6981485), CC BY 4.0). Se separan por árbol en 152 de entrenamiento y 49 de prueba.
-2. **Ocho generadores** que cubren las tres familias de la literatura:
+1. **Real data:** 201 QSMs (cylinder models reconstructed with TreeQSM) of tropical trees from 53 species on Barro Colorado Island, Panama ([Krishna Moorthy et al. 2022](https://doi.org/10.5281/zenodo.6981485), CC BY 4.0). They are split by tree into 152 for training and 49 for testing.
+2. **Eight generators** covering the three families in the literature:
 
-   | Familia | Generadores |
+   | Family | Generators |
    |---|---|
-   | Aprenden de árboles reales | **G0** ruido de radio · **G1** perturbación alométrica · **G2** recombinación de ramas de la misma especie · **G3** híbrido · **G4** procedural que sortea reglas de ramas reales |
-   | Reglas botánicas | **G5** alometría, filotaxis, perfiles medios |
-   | Algoritmo de crecimiento | **G6** *space colonization* |
+   | Learn from real trees | **G0** radius noise · **G1** allometric perturbation · **G2** same-species branch recombination · **G3** hybrid · **G4** procedural, sampling rules from real branches |
+   | Botanical rules | **G5** allometry, phyllotaxis, mean taper profiles |
+   | Growth algorithm | **G6** *space colonization* |
 
-3. **Evaluación frente a árboles reales no vistos**, siempre con la referencia de la variabilidad real–real:
-   - fidelidad: Wasserstein normalizada sobre 22 rasgos de árbol y 10 de rama, y test 1-NNA;
-   - novedad: ¿es un árbol nuevo o una copia?;
-   - validez botánica.
-4. **Bosque virtual en Isaac Sim 6.2** con la mejor mezcla (G2 + G4) y ramas modeladas como tubos continuos, en dos versiones con los mismos árboles y el mismo recorrido:
-   - **v1:** solo árboles;
-   - **v2:** bosque ambientado, con terreno, sotobosque, madera muerta, rocas y anillo exterior de árboles.
+3. **Evaluation against held-out real trees**, always reported next to the real–real reference:
+   - fidelity: normalized Wasserstein distance on 22 tree traits and 10 branch traits, plus a 1-NNA test;
+   - novelty: is it a new tree or a copy?;
+   - botanical validity.
+4. **Virtual forest in Isaac Sim 6.2**, built with the best mix (G2 + G4) and with branches modelled as continuous tubes. There are two versions with the same trees and the same route:
+   - **v1:** trees only;
+   - **v2:** dressed forest, with terrain, understory, deadwood, rocks and an outer ring of trees.
 
-   Una plataforma lleva un **LiDAR Ouster OS1 de 128 canales** y una **cámara RGB-D** (óptica RealSense D455). Los datos salen etiquetados por clase a 10 Hz y se ven en **tiempo real** con Rerun.
+   A platform carries a **128-channel Ouster OS1 LiDAR** and an **RGB-D camera** (RealSense D455 optics). The data are labelled per class at 10 Hz and shown **in real time** with Rerun.
 
-### Resultados principales
+### Main results
 
-| | Real (ref.) | G0 | G1 α=0,25 | G2 | G3 | G4 | G5 | G6 | **G2+G4** |
+| | Real (ref.) | G0 | G1 α=0.25 | G2 | G3 | G4 | G5 | G6 | **G2+G4** |
 |---|---|---|---|---|---|---|---|---|---|
-| 1-NNA (50 % = indistinguible) | 45,5 % | 54,2 % | 57,0 % | 55,9 % | 55,9 % | 63,2 % | 89,2 % | 97,8 % | **54,6 %** |
-| Novedad (0 = copia, 1 = otro árbol) | 1,00 | 0,31 | 0,38 | 0,73 | 0,81 | 1,60 | 1,98 | 2,13 | **1,19** |
+| 1-NNA (50 % = indistinguishable) | 45.5 % | 54.2 % | 57.0 % | 55.9 % | 55.9 % | 63.2 % | 89.2 % | 97.8 % | **54.6 %** |
+| Novelty (0 = copy, 1 = a different tree) | 1.00 | 0.31 | 0.38 | 0.73 | 0.81 | 1.60 | 1.98 | 2.13 | **1.19** |
 
-**Lectura:**
-- La recombinación (G2) es la más fiel.
-- G4 es el único generador realista que crea árboles realmente nuevos.
-- Su mezcla, G2+G4, conserva la fidelidad y casi duplica la novedad.
-- Los generadores sin datos reales (G5, G6) son fácilmente distinguibles.
+**How to read it:**
+- Recombination (G2) is the most faithful.
+- G4 is the only realistic generator that creates genuinely new trees.
+- Their mix, G2+G4, keeps the fidelity of G2 and nearly doubles the novelty.
+- The generators that use no real data (G5, G6) are easy to tell apart from real trees.
 
-En Isaac, la ambientación de v2 cambia mucho lo que ven los sensores: el sotobosque pasa a ser el **21,7 %** de los puntos LiDAR, una clase que no existe en v1.
+In Isaac, the dressing of v2 changes what the sensors see a lot: understory becomes **21.7 %** of the LiDAR points, a class that does not exist in v1.
 
-<p align="center"><img src="paper/figs/generadores.png" width="100%"><br><em>Árbol real (izquierda) y un sintético de cada generador.</em></p>
-<p align="center"><img src="paper/figs/sensores_v1_v2.png" width="100%"><br><em>Cámara RGB-D en la misma pose en v1 y v2: RGB, profundidad y segmentación.</em></p>
+<p align="center"><img src="paper/figs/generadores.png" width="100%"><br><em>A real tree (left) and one synthetic tree from each generator.</em></p>
+<p align="center"><img src="paper/figs/sensores_v1_v2.png" width="100%"><br><em>RGB-D camera at the same pose in v1 and v2: RGB, depth and segmentation.</em></p>
 
 ---
 
-## Estructura del repositorio
+## Repository layout
 
 ```
 Synthetic_Tree_G/
-├── scripts/                    Pipeline completo, en orden (01 → 05)
-│   ├── 01_download_data.sh     Descarga los 201 QSM de Zenodo (37 MB, verificado por MD5)
-│   ├── 02_run_synth_trees.sh   Parte 1: rasgos, generadores G0–G6, evaluación, tablas y figuras
-│   ├── 03_build_scenes.sh      Parte 2: recursos de Poly Haven + escenas v1 y v2 de Isaac Sim
-│   ├── 04_record_sensors.sh    Parte 3: grabaciones de sensores, capturas, comparación v1/v2, videos
-│   └── 05_build_paper.sh       Compila el artículo
-├── synth_trees/                Parte 1: árboles sintéticos (Python puro)
-│   ├── qsm.py                  Lectura de QSM de TreeQSM, topología, codificación local (tipo tortuga)
-│   ├── traits.py               Rasgos de árbol y de rama (mismo código para reales y sintéticos)
+├── scripts/                    Full pipeline, in order (01 → 05)
+│   ├── 01_download_data.sh     Downloads the 201 QSMs from Zenodo (37 MB, MD5-checked)
+│   ├── 02_run_synth_trees.sh   Part 1: traits, generators G0–G6, evaluation, tables and figures
+│   ├── 03_build_scenes.sh      Part 2: Poly Haven assets + Isaac Sim scenes v1 and v2
+│   ├── 04_record_sensors.sh    Part 3: sensor recordings, screenshots, v1/v2 comparison, videos
+│   └── 05_build_paper.sh       Builds the paper
+├── synth_trees/                Part 1: synthetic trees (pure Python)
+│   ├── qsm.py                  TreeQSM reader, topology, local (turtle-style) encoding
+│   ├── traits.py               Tree and branch traits (same code for real and synthetic trees)
 │   ├── generators.py           G0–G6
-│   ├── run_extract.py          Limpieza, caché, rasgos reales y partición train/test
-│   ├── run_generate.py         Genera 5 sintéticos por árbol de train con un generador
-│   ├── evaluate.py             W1n, 1-NNA, novedad y validez frente a test
-│   ├── evaluate_mixtures.py    Mezclas de generadores (5 semillas)
-│   ├── data_stats.py           Descriptivos de los datos, huecos de TreeQSM, exponente de Leonardo
-│   ├── make_figures.py         Figuras de la parte 1 del artículo
-│   └── render.py               Vista lateral de un árbol real y sus sintéticos
-├── isaac_forest/               Partes 2 y 3: bosque virtual y sensores (Isaac Sim 6.2)
-│   ├── meshing.py              QSM → malla de tubos continuos por rama
-│   ├── dressing.py             Terreno, circuito, sotobosque, madera muerta, rocas
-│   ├── build_forest.py         Construye la escena USD (v1 con --bare, v2 por defecto)
-│   ├── run_sensors.py          Plataforma con LiDAR OS1 + cámara RGB-D; graba fotogramas etiquetados
-│   ├── viewer.py               Visor en tiempo real / reproductor (Rerun)
-│   ├── demo.sh                 Lanzador de la demostración (Isaac + visor en vivo)
-│   └── tools/                  Recursos, capturas, comparación v1/v2, videos, prueba de sensores
-├── paper/                      Artículo (LaTeX): main.tex, refs.bib, figs/, main.pdf
-├── docs/
-│   ├── RESULTADOS_ESPERADOS.md Números de referencia para comprobar la replicación
-│   ├── DATOS.md                Formato de los datos de sensores y clases
-│   └── DATOS_EXTERNOS.md       Qué hay en Google Drive y dónde colocarlo
-├── requirements.txt            Dependencias de la parte 1 y de las herramientas de análisis
-├── requirements-viewer.txt     Dependencias del visor (entorno aparte)
+│   ├── run_extract.py          Cleaning, cache, real-tree traits and train/test split
+│   ├── run_generate.py         Generates 5 synthetic trees per training tree with one generator
+│   ├── evaluate.py             W1n, 1-NNA, novelty and validity against the test trees
+│   ├── evaluate_mixtures.py    Generator mixes (5 seeds)
+│   ├── data_stats.py           Data descriptives, TreeQSM gaps, Leonardo exponent
+│   ├── make_figures.py         Figures for part 1 of the paper
+│   └── render.py               Side view of a real tree and its synthetic versions
+├── isaac_forest/               Parts 2 and 3: virtual forest and sensors (Isaac Sim 6.2)
+│   ├── meshing.py              QSM → mesh of one continuous tube per branch
+│   ├── dressing.py             Terrain, route, understory, deadwood, rocks
+│   ├── build_forest.py         Builds the USD scene (v1 with --bare, v2 by default)
+│   ├── run_sensors.py          Platform with OS1 LiDAR + RGB-D camera; records labelled frames
+│   ├── viewer.py               Real-time viewer / player (Rerun)
+│   ├── demo.sh                 Demo launcher (Isaac + live viewer)
+│   └── tools/                  Assets, screenshots, v1/v2 comparison, videos, sensor test
+├── paper/                      Paper (LaTeX, Spanish): main.tex, refs.bib, figs/, main.pdf
+├── docs/                       (Spanish)
+│   ├── RESULTADOS_ESPERADOS.md Reference numbers to check a replication
+│   ├── DATOS.md                Sensor data format and classes
+│   └── DATOS_EXTERNOS.md       What is on Google Drive and where to put it
+├── requirements.txt            Dependencies for part 1 and the analysis tools
+├── requirements-viewer.txt     Viewer dependencies (separate environment)
 ├── CITATION.cff
-└── LICENSE                     MIT (código). Datos y recursos de terceros: ver Licencias
+└── LICENSE                     MIT (code). Third-party data and assets: see Licenses
 ```
 
-Lo que el pipeline genera (`data/`, `synth_trees/work/`, `isaac_forest/{assets,scenes,recordings,screenshots,videos}/`) no se versiona. Se regenera con `scripts/` o se descarga de Drive.
+What the pipeline generates (`data/`, `synth_trees/work/`, `isaac_forest/{assets,scenes,recordings,screenshots,videos}/`) is not version-controlled. You can regenerate it with `scripts/` or download it from Drive.
 
 ---
 
-## Requisitos
+## Requirements
 
-| Parte | Requisitos |
+| Part | Requirements |
 |---|---|
-| 1. Árboles sintéticos | Python 3.12, `requirements.txt`. CPU multinúcleo (paralelizado). No necesita GPU |
-| 2–3. Isaac Sim | GPU NVIDIA RTX (probado: RTX 5070 Ti 16 GB, driver 595), Ubuntu 22.04/24.04, **Isaac Sim 6.2.0** (pip), ~25 GB de disco para Isaac |
-| Visor | `requirements-viewer.txt` en un entorno **aparte** del de Isaac. Instalarlo en el de Isaac cambiaría la versión fijada de `psutil` |
+| 1. Synthetic trees | Python 3.12, `requirements.txt`. Multi-core CPU (runs in parallel). No GPU needed |
+| 2–3. Isaac Sim | NVIDIA RTX GPU (tested: RTX 5070 Ti 16 GB, driver 595), Ubuntu 22.04/24.04, **Isaac Sim 6.2.0** (pip), ~25 GB of disk for Isaac |
+| Viewer | `requirements-viewer.txt`, in an environment **separate** from Isaac's. Installing it into the Isaac environment would change Isaac's pinned `psutil` version |
 | Videos | `ffmpeg` |
-| Artículo | TeX Live con `biber`, `biblatex`, `babel-spanish` |
+| Paper | TeX Live with `biber`, `biblatex`, `babel-spanish` |
 
-Entorno de prueba: Ubuntu 24.04.5, Python 3.12.3, Isaac Sim 6.2.0.0, PyTorch 2.11 (CUDA 13), driver NVIDIA 595.91.
+Test environment: Ubuntu 24.04.5, Python 3.12.3, Isaac Sim 6.2.0.0, PyTorch 2.11 (CUDA 13), NVIDIA driver 595.91.
 
-### Instalación
+### Installation
 
 ```bash
 git clone https://github.com/Nosl3n/Synthetic_Tree_G.git
 cd Synthetic_Tree_G
 
-# Parte 1 y análisis
+# Part 1 and analysis
 python3 -m venv .venv && source .venv/bin/activate
 pip install -r requirements.txt
 
-# Isaac Sim 6.2 (entorno propio; instrucciones oficiales: https://docs.isaacsim.omniverse.nvidia.com)
+# Isaac Sim 6.2 (its own environment; official instructions: https://docs.isaacsim.omniverse.nvidia.com)
 python3.12 -m venv ~/isaacsim_env
 ~/isaacsim_env/bin/pip install "isaacsim[all,extscache]==6.2.0.0" --extra-index-url https://pypi.nvidia.com
-~/isaacsim_env/bin/pip install torch==2.11.0 --index-url https://download.pytorch.org/whl/cu130   # como en el entorno probado
+~/isaacsim_env/bin/pip install torch==2.11.0 --index-url https://download.pytorch.org/whl/cu130   # as in the tested environment
 export ISAAC_PY=~/isaacsim_env/bin/python
-export OMNI_KIT_ACCEPT_EULA=YES          # acepta la licencia de NVIDIA Omniverse
+export OMNI_KIT_ACCEPT_EULA=YES          # accepts the NVIDIA Omniverse licence
 
-# Visor (entorno aparte)
+# Viewer (separate environment)
 python3 -m venv isaac_forest/.venv_viz
 isaac_forest/.venv_viz/bin/pip install -r requirements-viewer.txt
 ```
 
 ---
 
-## Replicar todo
+## Reproducing everything
 
-Con el entorno `.venv` activado y `ISAAC_PY` definido:
+With `.venv` activated and `ISAAC_PY` set:
 
 ```bash
 bash scripts/01_download_data.sh     # ~20 s
-bash scripts/02_run_synth_trees.sh   # ~3 min con 32 núcleos (más con menos)
-bash scripts/03_build_scenes.sh      # ~1 min (incluye ~450 MB de recursos de Poly Haven)
+bash scripts/02_run_synth_trees.sh   # ~3 min with 32 cores (longer with fewer)
+bash scripts/03_build_scenes.sh      # ~1 min (includes ~450 MB of Poly Haven assets)
 bash scripts/04_record_sensors.sh    # ~8 min (RTX 5070 Ti)
 bash scripts/05_build_paper.sh       # ~1 min
 ```
 
-- **Determinismo:** todas las semillas están fijadas. La partición train/test, los 6 080 árboles sintéticos, las métricas, las escenas y el recorrido de la plataforma se reproducen exactamente.
-- **Valores de referencia:** [`docs/RESULTADOS_ESPERADOS.md`](docs/RESULTADOS_ESPERADOS.md) recoge los números con los que comparar tu ejecución.
-- **Comprobado:** una ejecución desde cero en un entorno limpio reproduce bit a bit los árboles sintéticos y todas las métricas, y genera escenas idénticas. La cámara es determinista; el LiDAR RTX varía en menos del 0,01 % entre ejecuciones (orden de operaciones en GPU). La velocidad depende del hardware.
+- **Determinism:** all random seeds are fixed. The train/test split, the 6,080 synthetic trees, the metrics, the scenes and the platform route are reproduced exactly.
+- **Reference values:** [`docs/RESULTADOS_ESPERADOS.md`](docs/RESULTADOS_ESPERADOS.md) lists the numbers to compare your run against.
+- **Verified:** a from-scratch run in a clean environment reproduces the synthetic trees and all metrics bit for bit, and builds identical scenes. The camera is deterministic; the RTX LiDAR varies by less than 0.01 % between runs because of the order of GPU operations. Speed depends on the hardware.
 
-**Solo la parte 1**, sin GPU: basta con `01` y `02`. Genera todas las tablas de generadores del artículo.
+**Part 1 only**, without a GPU: run `01` and `02`. This produces all the generator tables in the paper.
 
 ---
 
-## Demostración en tiempo real
+## Real-time demo
 
 ```bash
 cd isaac_forest
-./demo.sh                              # v2: Isaac sin ventana + visor Rerun en vivo
-WORLD=forest_v1_arboles ./demo.sh      # v1: solo árboles
-./demo.sh gui                          # además, ventana de Isaac con la nube LiDAR dibujada
-./demo.sh web                          # visor en el navegador
-./demo.sh replay                       # sin Isaac: reproduce recordings/v2_bosque (o descárgala de Drive)
+./demo.sh                              # v2: headless Isaac + live Rerun viewer
+WORLD=forest_v1_arboles ./demo.sh      # v1: trees only
+./demo.sh gui                          # also opens the Isaac window, with the LiDAR cloud drawn
+./demo.sh web                          # viewer in the browser
+./demo.sh replay                       # no Isaac: replays recordings/v2_bosque (or download it from Drive)
 ```
 
-El visor muestra:
-- **3D:** el barrido LiDAR actual por clase, el mapa acumulado, el esqueleto "verdad" de los árboles, la trayectoria y la cámara con su profundidad proyectada;
-- **2D:** RGB, profundidad y segmentación;
-- **series temporales:** puntos por clase.
+The viewer shows:
+- **3D:** the current LiDAR scan by class, the accumulated map, the ground-truth tree skeletons, the trajectory, and the camera with its depth projected;
+- **2D:** RGB, depth and segmentation;
+- **time series:** points per class.
 
 ---
 
-## Datos externos (Google Drive)
+## External data (Google Drive)
 
-Los archivos pesados no van en el repositorio. Están en Google Drive:
+Large files are not in the repository. They are on Google Drive:
 
-**🔗 [Carpeta de Google Drive](https://drive.google.com/drive/folders/1A_rpW5E1f6_VL9n4JmHMmiPmwXZPpeNK?usp=sharing)**
+**🔗 [Google Drive folder](https://drive.google.com/drive/folders/1A_rpW5E1f6_VL9n4JmHMmiPmwXZPpeNK?usp=sharing)**
 
-| Carpeta | Contenido | Tamaño aprox. | Cómo se regenera |
+| Folder | Contents | Approx. size | How to regenerate |
 |---|---|---|---|
-| `01_datos_sensores/` | Grabaciones v1 y v2 (840 fotogramas etiquetados cada una) | 1,8 + 2,7 GB | `04_record_sensors.sh` |
-| `02_rerun/` | Las mismas grabaciones en formato Rerun (`.rrd`), para verlas sin Isaac (como un *rosbag*) | 1,6 + 2,8 GB | `viewer.py --replay --save` |
-| `03_videos/` | Videos de muestra de cada recorrido | 47 + 157 MB | `tools/make_video.py` |
-| `04_escenas/` | Escenas USD v1 y v2 listas para abrir en Isaac Sim | 0,17 GB (+ recursos de Poly Haven) | `03_build_scenes.sh` |
-| `05_arboles_sinteticos/` | Árboles reales procesados y los 8 conjuntos sintéticos con sus rasgos y evaluaciones | 0,6 GB | `02_run_synth_trees.sh` |
-| `06_capturas/` | Capturas del simulador | 39 MB | `tools/screenshots.py` |
+| `01_datos_sensores/` | v1 and v2 recordings (840 labelled frames each) | 1.8 + 2.7 GB | `04_record_sensors.sh` |
+| `02_rerun/` | The same recordings in Rerun format (`.rrd`), viewable without Isaac (like a *rosbag*) | 1.6 + 2.8 GB | `viewer.py --replay --save` |
+| `03_videos/` | Sample video of each route | 47 + 157 MB | `tools/make_video.py` |
+| `04_escenas/` | v1 and v2 USD scenes, ready to open in Isaac Sim | 0.17 GB (+ Poly Haven assets) | `03_build_scenes.sh` |
+| `05_arboles_sinteticos/` | Processed real trees and the 8 synthetic sets, with traits and evaluations | 0.6 GB | `02_run_synth_trees.sh` |
+| `06_capturas/` | Simulator screenshots | 39 MB | `tools/screenshots.py` |
 
-[`docs/DATOS_EXTERNOS.md`](docs/DATOS_EXTERNOS.md) explica dónde colocar cada carpeta para usarla con el código, por ejemplo para ver las grabaciones o abrir las escenas sin regenerarlas.
+[`docs/DATOS_EXTERNOS.md`](docs/DATOS_EXTERNOS.md) (Spanish) explains where to put each folder so the code can use it, for example to view the recordings or open the scenes without regenerating them.
 
 ---
 
-## Cómo citar
+## How to cite
 
 ```bibtex
 @misc{synthetic_tree_g_2026,
   author = {Broyer-Paco, Nelson and Marquez-Aguilar, Angel and Shi, Li and Josine and Pacifique},
-  title  = {Synthetic\_Tree\_G: Generación de árboles tropicales sintéticos a partir de modelos QSM reales
-            y bosque virtual con LiDAR y cámara de profundidad en Isaac Sim},
+  title  = {Synthetic\_Tree\_G: Generating synthetic tropical trees from real QSM tree models,
+            with a virtual forest for LiDAR and depth-camera simulation in Isaac Sim},
   year   = {2026},
   url    = {https://github.com/Nosl3n/Synthetic_Tree_G}
 }
 ```
 
-Cita también los datos: Krishna Moorthy, S. M. et al. (2022). *Datasets to quantify the impact of lianas on 3D tree structure and biomass*. Zenodo. https://doi.org/10.5281/zenodo.6981485
+Please also cite the data: Krishna Moorthy, S. M. et al. (2022). *Datasets to quantify the impact of lianas on 3D tree structure and biomass*. Zenodo. https://doi.org/10.5281/zenodo.6981485
 
-## Licencias
+## Licenses
 
-- **Código:** MIT ([LICENSE](LICENSE)).
-- **QSM de BCI:** CC BY 4.0 (Krishna Moorthy et al. 2022). Se descargan, no se redistribuyen.
-- **Texturas, cielos HDRI y modelos 3D:** [Poly Haven](https://polyhaven.com), CC0. Se descargan con `tools/download_assets.py`.
-- **Isaac Sim:** licencia de NVIDIA Omniverse (al usarlo se acepta su EULA).
+- **Code:** MIT ([LICENSE](LICENSE)).
+- **BCI QSMs:** CC BY 4.0 (Krishna Moorthy et al. 2022). They are downloaded, not redistributed.
+- **Textures, HDRI skies and 3D models:** [Poly Haven](https://polyhaven.com), CC0. Downloaded with `tools/download_assets.py`.
+- **Isaac Sim:** NVIDIA Omniverse licence (using it means accepting its EULA).
 
-## Limitaciones conocidas
+## Known limitations
 
-- **Los rasgos se miden sobre QSM**, que son reconstrucciones con sesgos. El 4,7 % de las uniones de TreeQSM tienen huecos de más de 20 cm. Los árboles sintéticos que copian geometría real los heredan; las mallas de Isaac los cierran.
-- **Con 49 árboles de test**, el 1-NNA tiene poca potencia estadística.
-- **El bosque que se ve al fondo de la cámara en v2** es la foto del cielo HDRI: no tiene profundidad, se etiqueta como fondo y el LiDAR no lo ve.
-- **La profundidad de la cámara es ideal** (sin ruido estereoscópico) y no hay hojas.
-- **Pendiente:** medir la utilidad de los datos sintéticos para entrenar redes (TSTR).
+- **Traits are measured on QSMs**, which are reconstructions with their own biases. 4.7 % of TreeQSM joints have gaps larger than 20 cm. Synthetic trees that copy real geometry inherit them; the Isaac meshes close them.
+- **With 49 test trees**, 1-NNA has low statistical power.
+- **The forest seen in the background of the camera in v2** is the HDRI sky photo: it has no depth, it is labelled as background, and the LiDAR does not see it.
+- **The camera depth is ideal** (no stereo noise), and the trees have no leaves.
+- **Still to do:** measure how useful the synthetic data are for training networks (TSTR).
