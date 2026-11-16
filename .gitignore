@@ -23,3 +23,11 @@ paper/*.log
 paper/*.out
 paper/*.run.xml
 paper/*.bcf-SAVE-ERROR
+# QSM variation pipeline: regenerable data and results (not tracked)
+mat/
+qsms.parquet
+varied_radius/
+demo_length_axis/
+length/
+taper/
+viz/
