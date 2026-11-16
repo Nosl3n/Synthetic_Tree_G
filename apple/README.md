@@ -3,7 +3,7 @@
 | File | What it is | Licence |
 |---|---|---|
 | `bibaum_prepruned.npz` | Real apple tree "Bibaum A" before winter pruning, 2020: 131 cylinders | CC BY 4.0, see below |
-| `bibaum_pruned.npz` | The same tree after pruning (30 March 2020): 99 cylinders | CC BY 4.0, see below |
+| `bibaum_pruned.npz` | The same tree after the 2020 winter pruning (scanned 30 March 2020): 99 cylinders | CC BY 4.0, see below |
 | `apple_real_vs_tropical.png`, `apple_vs_tropical_deck.png` | Figures showing the Bibaum tree beside procedural and tropical QSMs | CC BY 4.0, see below |
 | `apple_procedural.npz`, `apple_vs_tropical.png` | Procedural open-centre apple tree (`make_apple_comparison.py`) and its comparison figure | MIT (repository `LICENSE`) |
 
@@ -14,7 +14,8 @@ Each `.npz` holds one `Tree` in the format of `synth_trees/qsm.py`: `start`, `ax
 
 - **Tree:** one apple tree, "Bibaum A", in the experimental orchard of Wageningen University & Research at
   Randwijk, the Netherlands.
-- **Measurement:** terrestrial laser scans (RIEGL VZ-400) of the same tree before and after the 2020 winter pruning.
+- **Measurement:** terrestrial laser scans (RIEGL VZ-400) of the same tree before and after the 2020 winter pruning;
+  the pruning was done between 11 and 30 March 2020, and the after-pruning scan is from 30 March.
 - **Model:** a TreeQSM 2.4.0 model of the pre-pruning scan (66 branches, 659 cylinders) by Angel Marquez Aguilar.
   The fate of each branch (removed, shortened, kept) comes from comparing the before and after scans.
 - **These files:** a coarse, connected skeleton of that model (one polyline per branch through its children's
