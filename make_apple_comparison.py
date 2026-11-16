@@ -18,6 +18,17 @@ sys.path.insert(0, os.path.join(HERE, 'synth_trees'))
 import qsm
 
 
+def tropical_mats():
+    """TreeQSM files of the tropical trees: the parameter ensemble in mat/MultipleQSMModels/ if
+    present, else the 201 published BCI models that scripts/01_download_data.sh downloads."""
+    for d in (os.path.join(HERE, 'mat', 'MultipleQSMModels'),
+              os.path.join(HERE, 'data', 'bci_zenodo_6981485', 'QSMs')):
+        mats = sorted(glob.glob(os.path.join(d, '*.mat')))
+        if mats:
+            return mats
+    sys.exit('No TreeQSM files found: run scripts/01_download_data.sh first.')
+
+
 def _unit(v):
     v = np.asarray(v, float)
     return v / np.linalg.norm(v)
@@ -97,7 +108,7 @@ def main():
     apple = build_apple(seed=0)
     qsm.save_npz(apple, f'{HERE}/apple/apple_procedural.npz')
 
-    mats = sorted(glob.glob(f'{HERE}/mat/MultipleQSMModels/*.mat'))
+    mats = tropical_mats()
     trop = qsm.load_mat(mats[0])
 
     fig = plt.figure(figsize=(9, 6))

@@ -11,6 +11,7 @@ import os
 
 import numpy as np
 import scipy.io as sio
+from scipy.io.matlab import mat_struct
 
 import matplotlib
 matplotlib.use('Agg')
@@ -19,9 +20,22 @@ from mpl_toolkits.mplot3d.art3d import Line3DCollection
 
 
 def load_qsm(path):
+    """Load a TreeQSM .mat file and return the QSM as one mat_struct.
+
+    Two layouts exist: TreeQSM runs saved as a single `QSM` struct (the parameter ensemble in
+    mat/MultipleQSMModels/), and the published BCI models (scripts/01_download_data.sh), which
+    store `cylinder`, `branch`, `treedata`, `rundata`, ... as separate variables.
+    """
     d = sio.loadmat(path, squeeze_me=True, struct_as_record=False)
-    key = 'QSM' if 'QSM' in d else next(k for k in d if not k.startswith('__'))
-    return d[key]
+    if 'QSM' in d:
+        return d['QSM']
+    if 'cylinder' in d:
+        q = mat_struct()
+        q._fieldnames = [k for k in d if not k.startswith('__')]
+        for k in q._fieldnames:
+            setattr(q, k, d[k])
+        return q
+    raise ValueError(f'No QSM data in {path}: {sorted(d.keys())}')
 
 
 def render(q, out_png, title=''):

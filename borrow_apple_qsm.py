@@ -20,6 +20,17 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, os.path.join(HERE, 'synth_trees'))
 import qsm
 
+
+def tropical_mats():
+    """TreeQSM files of the tropical trees: the parameter ensemble in mat/MultipleQSMModels/ if
+    present, else the 201 published BCI models that scripts/01_download_data.sh downloads."""
+    for d in (os.path.join(HERE, 'mat', 'MultipleQSMModels'),
+              os.path.join(HERE, 'data', 'bci_zenodo_6981485', 'QSMs')):
+        mats = sorted(glob.glob(os.path.join(d, '*.mat')))
+        if mats:
+            return mats
+    sys.exit('No TreeQSM files found: run scripts/01_download_data.sh first.')
+
 # GroIMP .qsm exports of the Bibaum A tree (not in this repository; the derived apple/bibaum_*.npz are).
 BIBAUM_QSM_DIR = os.environ.get('BIBAUM_QSM_DIR', os.path.join(HERE, 'bibaum_qsm'))
 BIBAUM = os.path.join(BIBAUM_QSM_DIR, 'bibaum_a_prepruned.qsm')
@@ -89,7 +100,7 @@ def main():
     import make_apple_comparison as mac
     proc = mac.build_apple(seed=0)
 
-    mats = sorted(glob.glob(f'{HERE}/mat/MultipleQSMModels/*.mat'))
+    mats = tropical_mats()
     trop = qsm.load_mat(mats[0])
 
     fig = plt.figure(figsize=(13, 5))

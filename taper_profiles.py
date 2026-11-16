@@ -24,6 +24,17 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, os.path.join(HERE, 'synth_trees'))
 import qsm  # noqa: E402
 
+
+def tropical_mats():
+    """TreeQSM files of the tropical trees: the parameter ensemble in mat/MultipleQSMModels/ if
+    present, else the 201 published BCI models that scripts/01_download_data.sh downloads."""
+    for d in (os.path.join(HERE, 'mat', 'MultipleQSMModels'),
+              os.path.join(HERE, 'data', 'bci_zenodo_6981485', 'QSMs')):
+        mats = sorted(glob.glob(os.path.join(d, '*.mat')))
+        if mats:
+            return mats
+    sys.exit('No TreeQSM files found: run scripts/01_download_data.sh first.')
+
 TAPER_H = np.round(np.arange(0.1, 1.0, 0.1), 1)
 
 
@@ -54,7 +65,7 @@ def trunk_taper(t):
 
 
 def main():
-    mats = sorted(glob.glob(f'{HERE}/mat/MultipleQSMModels/*.mat'))
+    mats = tropical_mats()
     prof_path = f'{HERE}/taper/taper_profiles.csv'
     summ_path = f'{HERE}/taper/taper_summary.csv'
     os.makedirs(f'{HERE}/taper', exist_ok=True)

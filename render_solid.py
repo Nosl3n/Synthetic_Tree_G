@@ -14,6 +14,17 @@ sys.path.insert(0, os.path.join(HERE, 'synth_trees'))
 import qsm
 
 
+def tropical_mats():
+    """TreeQSM files of the tropical trees: the parameter ensemble in mat/MultipleQSMModels/ if
+    present, else the 201 published BCI models that scripts/01_download_data.sh downloads."""
+    for d in (os.path.join(HERE, 'mat', 'MultipleQSMModels'),
+              os.path.join(HERE, 'data', 'bci_zenodo_6981485', 'QSMs')):
+        mats = sorted(glob.glob(os.path.join(d, '*.mat')))
+        if mats:
+            return mats
+    sys.exit('No TreeQSM files found: run scripts/01_download_data.sh first.')
+
+
 def render_solid(t, out, n_circ=12, dpi=200):
     light = np.array([0.4, -0.3, 0.85]); light /= np.linalg.norm(light)
     st = t.start.astype(float)
@@ -60,7 +71,7 @@ def render_solid(t, out, n_circ=12, dpi=200):
 
 
 if __name__ == '__main__':
-    mats = sorted(glob.glob(f'{HERE}/mat/MultipleQSMModels/*.mat'))
+    mats = tropical_mats()
     tree = qsm.load_mat(mats[0])
     out = f'{HERE}/viz/{tree.name}_solid.png'
     render_solid(tree, out)

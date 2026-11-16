@@ -14,7 +14,8 @@ the same cylinder representation and generators transfer to agricultural trees.
 ## Data flow
 
 ```
-mat/MultipleQSMModels/*.mat          input TreeQSM models (gitignored)
+mat/MultipleQSMModels/*.mat          input TreeQSM models (gitignored); without it the scripts
+                                     use data/bci_zenodo_6981485/QSMs/ (scripts/01_download_data.sh)
    │  vary_qsm.py  (radius | length | axis)
    ├─> <out>/summary.csv             per-variant metric delta (one row per seed × model)
    ├─> <out>/cylinders/*.csv         per-cylinder tables of the varied QSMs
@@ -24,6 +25,18 @@ mat/MultipleQSMModels/*.mat          input TreeQSM models (gitignored)
    │  visualize.py / render_solid.py
    └─> viz/*.png                     skeleton / solid-shaded renders
 ```
+
+### Input models
+
+The results below were computed on `mat/MultipleQSMModels/`: a TreeQSM parameter ensemble run on the
+wood point clouds of the BCI dataset (Krishna Moorthy et al. 2022, Zenodo 6981485, CC BY 4.0), about
+10 models per tree, 2,008 in all. Its files are named
+`<cloud>-<PatchDiam1>-<PatchDiam2Min>-<PatchDiam2Max>-<model>`. The published dataset keeps one model
+per tree, with patch settings chosen per tree (TreeQSM 2.4.0; for `ALBLAC_1082`, `0.12-0.04-0.1`, model
+1). The ensemble is not distributed with this repository. Without it, every script falls back to the 201
+published models that `scripts/01_download_data.sh` downloads, and `vary_qsm.py`, `export_parquet.py` and
+`visualize.py` read both file layouts, so the whole pipeline runs from a fresh clone; the numbers then
+cover one model per tree instead of the ensemble.
 
 ## Scripts
 
