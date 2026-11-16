@@ -18,8 +18,8 @@ Each `.npz` holds one `Tree` in the format of `synth_trees/qsm.py`: `start`, `ax
 - **Model:** a TreeQSM 2.4.0 model of the pre-pruning scan (66 branches, 659 cylinders) by Angel Marquez Aguilar.
   The fate of each branch (removed, shortened, kept) comes from comparing the before and after scans.
 - **These files:** a coarse, connected skeleton of that model (one polyline per branch through its children's
-  insertion points), exported as a GroIMP `.qsm` table and converted to this repository's format by
-  `borrow_apple_qsm.py`. They are simplified examples: neither the full 659-cylinder model nor the point clouds.
+  insertion points), exported as a GroIMP `.qsm` table on 27 October 2026 and converted to this repository's format by
+  `borrow_apple_qsm.py`; later exports of the pruned tree differ (97 cylinders since 7 November 2026). They are simplified examples: neither the full 659-cylinder model nor the point clouds.
 
 ## Licence and how to credit
 
