@@ -41,8 +41,7 @@ cover one model per tree instead of the ensemble.
 Ensemble provenance (from one file's TreeQSM `rundata` and the zip's `Zone.Identifier`): generated on
 a macOS account `sruthikp` (`savedir`
 `/Users/sruthikp/Work/Analysis/BCI2019/2019_TLS_data/QSMsV2_4/MultipleQSMModels/`), dated 2025-03-14,
-with TreeQSM 2.4.0; the `MultipleQSMModels.zip` was downloaded from Zenodo record 15395386. Whether the
-ensemble may be shared is `sruthikp`'s call (not confirmed).
+with TreeQSM 2.4.0; the `MultipleQSMModels.zip` is available at Zenodo record 15395386.
 
 ## Scripts
 
