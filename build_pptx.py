@@ -239,7 +239,7 @@ footer(s)
 # ===== 9. Demo 2: robotic pruning =====
 s = slide()
 title_bar(s, "Demo 2: robotic pruning (orchard-robot repo)",
-          "The same tree models drive a real pruning robot in the orchard.")
+          "The same tree models drive a simulated pruning robot (MuJoCo) on a real apple tree.")
 video(s, os.path.join(ROOT, 'paper/videos/Synthetic_Tree_G_apple_pruning_robot_simulation.mp4'), 0.7, 1.9, 7.3, 4.11)
 vc = s.shapes.add_textbox(Inches(0.7), Inches(6.05), Inches(7.3), Inches(0.34))
 vp = vc.text_frame.paragraphs[0]
