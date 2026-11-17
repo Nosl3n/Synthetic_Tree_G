@@ -225,7 +225,7 @@ footer(s)
 s = slide()
 title_bar(s, "Demo 1: automatically-labelled sensor data",
           "24 synthetic trees · 128-channel Ouster OS1 LiDAR + RGB-D (D455) @ 10 Hz · per-class labels in real time")
-video(s, os.path.join(ROOT, 'media/forest_route.mp4'), 0.7, 1.9, 7.3, 3.56)
+video(s, os.path.join(ROOT, 'paper/videos/Synthetic_Tree_G_virtual_forest_sensors.mp4'), 0.7, 1.9, 7.3, 3.56)
 vc = s.shapes.add_textbox(Inches(0.7), Inches(5.5), Inches(7.3), Inches(0.34))
 vp = vc.text_frame.paragraphs[0]
 vp.text = "Isaac Sim forest route (84 s) — LiDAR + RGB-D in real time."
@@ -240,7 +240,7 @@ footer(s)
 s = slide()
 title_bar(s, "Demo 2: robotic pruning (orchard-robot repo)",
           "The same tree models drive a real pruning robot in the orchard.")
-video(s, os.path.join(ROOT, 'media/pruning_agent.mp4'), 0.7, 1.9, 7.3, 4.11)
+video(s, os.path.join(ROOT, 'paper/videos/Synthetic_Tree_G_apple_pruning_robot_simulation.mp4'), 0.7, 1.9, 7.3, 4.11)
 vc = s.shapes.add_textbox(Inches(0.7), Inches(6.05), Inches(7.3), Inches(0.34))
 vp = vc.text_frame.paragraphs[0]
 vp.text = "Robotic pruning plan (Nemotron 550B) on the apple tree."
