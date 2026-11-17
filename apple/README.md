@@ -24,8 +24,8 @@ Each `.npz` holds one `Tree` in the format of `synth_trees/qsm.py`: `start`, `ax
 
 ## Licence and how to credit
 
-The Bibaum files and figures listed above, and the slides of the English deck (`paper/`) that show the Bibaum tree
-or its scans, are © 2026 Angel Marquez Aguilar, licensed under
+The Bibaum files and figures listed above, the slides of the English deck (`paper/`) that show the Bibaum tree
+or its scans, and the pruning video `paper/videos/pruning_agent.mp4` (credit line in `paper/README.md`) are © 2026 Angel Marquez Aguilar, licensed under
 [Creative Commons Attribution 4.0 International (CC BY 4.0)](https://creativecommons.org/licenses/by/4.0/).
 You may share and adapt them for any purpose, provided you:
 

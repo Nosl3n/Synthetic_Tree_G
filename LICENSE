@@ -24,8 +24,9 @@ SOFTWARE.
 ---
 
 Data exception: the Bibaum apple-tree examples in apple/ (bibaum_prepruned.npz,
-bibaum_pruned.npz, apple_real_vs_tropical.png, apple_vs_tropical_deck.png) and the
-deck slides that show the Bibaum tree or its scans are (c) 2026 Angel Marquez Aguilar
+bibaum_pruned.npz, apple_real_vs_tropical.png, apple_vs_tropical_deck.png), the
+deck slides that show the Bibaum tree or its scans, and the video
+paper/videos/pruning_agent.mp4 are (c) 2026 Angel Marquez Aguilar
 and licensed under Creative Commons Attribution 4.0 International (CC BY 4.0),
 https://creativecommons.org/licenses/by/4.0/. Provenance and how to credit them:
-apple/README.md.
+apple/README.md and paper/README.md.

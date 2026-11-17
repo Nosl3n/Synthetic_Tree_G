@@ -8,7 +8,7 @@
 
 **Autores:** Nelson Broyer-Paco, Angel Marquez-Aguilar, Li Shi, Josine, Pacifique
 
-📄 Artículo: [`paper/main.pdf`](paper/main.pdf) (en español) · 📦 Datos pesados (grabaciones, videos, escenas): [Google Drive](https://drive.google.com/drive/folders/1A_rpW5E1f6_VL9n4JmHMmiPmwXZPpeNK?usp=sharing)
+📄 Artículo: [`paper/main.pdf`](paper/main.pdf) (en español) · 🎞️ Presentación en inglés y videos: [`paper/README.md`](paper/README.md) · 📦 Datos pesados (grabaciones, videos, escenas): [Google Drive](https://drive.google.com/drive/folders/1A_rpW5E1f6_VL9n4JmHMmiPmwXZPpeNK?usp=sharing)
 
 ![El mismo bosque en dos versiones](paper/figs/vistas_v1_v2.png)
 
@@ -86,7 +86,8 @@ Synthetic_Tree_G/
 │   ├── viewer.py               Visor en tiempo real / reproductor (Rerun)
 │   ├── demo.sh                 Lanzador de la demostración (Isaac + visor en vivo)
 │   └── tools/                  Recursos, capturas, comparación v1/v2, videos, prueba de sensores
-├── paper/                      Artículo (LaTeX): main.tex, refs.bib, figs/, main.pdf
+├── paper/                      Artículo (LaTeX): main.tex, refs.bib, figs/, main.pdf;
+│                               presentación en inglés y videos/ (paper/README.md)
 ├── docs/
 │   ├── RESULTADOS_ESPERADOS.md Números de referencia para comprobar la replicación
 │   ├── DATOS.md                Formato de los datos de sensores y clases
@@ -214,6 +215,7 @@ Cita también los datos: Krishna Moorthy, S. M. et al. (2022). *Datasets to quan
 - **QSM de BCI:** CC BY 4.0 (Krishna Moorthy et al. 2022). Se descargan, no se redistribuyen.
 - **Texturas, cielos HDRI y modelos 3D:** [Poly Haven](https://polyhaven.com), CC0. Se descargan con `tools/download_assets.py`.
 - **Isaac Sim:** licencia de NVIDIA Omniverse (al usarlo se acepta su EULA).
+- **Videos de la presentación** (`paper/videos/`): licencias y cómo citarlos en [`paper/README.md`](paper/README.md).
 
 ## Limitaciones conocidas
 
