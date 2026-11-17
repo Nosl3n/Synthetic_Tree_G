@@ -7,7 +7,7 @@ DST="$ROOT/data/bci_zenodo_6981485"
 mkdir -p "$DST"
 cd "$DST"
 if [ ! -d QSMs ] || [ "$(ls QSMs/*.mat 2>/dev/null | wc -l)" -lt 201 ]; then
-    curl -L --fail -o QSMs.zip "https://zenodo.org/api/records/6981485/files/QSMs.zip/content"
+    curl -L --fail -A "Synthetic_Tree_G" -o QSMs.zip "https://zenodo.org/api/records/6981485/files/QSMs.zip/content"
     python3 - <<'PY'
 import hashlib, json, urllib.request
 rec = json.load(urllib.request.urlopen("https://zenodo.org/api/records/6981485"))

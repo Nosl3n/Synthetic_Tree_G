@@ -32,3 +32,11 @@ references:
     year: 2022
     doi: 10.5281/zenodo.6981485
     license: CC-BY-4.0
+  - type: dataset
+    title: "Bibaum A apple-tree QSM examples (WUR Randwijk, terrestrial laser scans 2020, before and after pruning)"
+    authors:
+      - given-names: Angel
+        family-names: Marquez-Aguilar
+    year: 2026
+    license: CC-BY-4.0
+    notes: "Files apple/bibaum_prepruned.npz and apple/bibaum_pruned.npz in this repository; provenance in apple/README.md."
